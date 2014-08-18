@@ -5,5 +5,3 @@ A very opinionated PDF generation using [PhantomJs](http://phantomjs.org/) writt
 ## Installing
 
     npm install phantom-pdf
-
-## Use
