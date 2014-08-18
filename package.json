@@ -8,6 +8,11 @@
   },
   "author": "Jonathan Nutter <jnutter@gmail.com>",
   "license": "MIT",
+  "keywords": ["pdf", "phantom", "pdf generation"],
+  "repository" : {
+    "type" : "git",
+    "url" : "http://github.com/jnutter/phantom-pdf.git"
+  },
   "dependencies": {
     "async": "^0.9.0",
     "deep-extend": "^0.2.11",
