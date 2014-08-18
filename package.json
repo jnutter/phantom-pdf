@@ -1,7 +1,7 @@
 {
   "name": "phantom-pdf",
   "version": "0.0.1",
-  "description": "",
+  "description": "PDF Generation for Node.js using handlebars and less",
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=test ./node_modules/.bin/mocha --check-leaks --recursive --reporter spec test/**/*.test.js"
