@@ -22,11 +22,8 @@ var Render = module.exports = function(manifest, data, callback){
 
 	page.settings.resourceTimeout = 30000; // 30 seconds
 	page.onResourceTimeout = function(e) {
-	  console.log(e.errorCode);   // it'll probably be 408
-	  console.log(e.errorString); // it'll probably be 'Network timeout on resource'
-	  console.log(e.url);         // the url whose request timed out
 	  page.render(manifest.output);
-		callback();
+		callback(e);
 	};
 
 	page.content = Handlebars.compile("<!DOCTYPE html><html><head><style type='text/css'>{{> css}}</style></head><body>{{> body}}<div style='visibility:hidden;position: absolute; top: 0; left: -9999px;'>"+headerAndFooterInserts+"</div></body></html>")(data);
