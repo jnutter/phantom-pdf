@@ -1,6 +1,6 @@
 {
   "name": "phantom-pdf",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "PDF Generation for Node.js using handlebars and less",
   "main": "index.js",
   "scripts": {
@@ -8,10 +8,14 @@
   },
   "author": "Jonathan Nutter <jnutter@gmail.com>",
   "license": "MIT",
-  "keywords": ["pdf", "phantom", "pdf generation"],
-  "repository" : {
-    "type" : "git",
-    "url" : "http://github.com/jnutter/phantom-pdf.git"
+  "keywords": [
+    "pdf",
+    "phantom",
+    "pdf generation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/jnutter/phantom-pdf.git"
   },
   "dependencies": {
     "async": "^0.9.0",
