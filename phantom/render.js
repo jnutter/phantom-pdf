@@ -9,15 +9,21 @@ var Render = module.exports = function(manifest, data, callback){
 		return callback('body.hbs not found');
 	}
 
+  console.log('Booting page in phantom');
 	var page = require('webpage').create();
 
+  console.log('Register handlebar helpers');
 	this.registerHelpers(require(manifest.helpers), manifest.helperVariables);
 
+  console.log('Set headers and footers');
 	var headerAndFooterInserts = this.setPrintHeadersOrFooters(partials, phantomSettings, data);
 
+  console.log('Setup page');
 	this.setPageSettings(page, phantomSettings);
 
+  console.log('Register parcials');
 	this.registerPartial(partials);
+  console.log('Register CSS parcials');
 	this.registerCss(manifest.css);
 
 	page.settings.resourceTimeout = 30000; // 30 seconds
@@ -25,10 +31,11 @@ var Render = module.exports = function(manifest, data, callback){
 	  page.render(manifest.output);
 		callback(e);
 	};
-
+  console.log('Setting content');
 	page.content = Handlebars.compile("<!DOCTYPE html><html><head><style type='text/css'>{{> css}}</style></head><body>{{> body}}<div style='visibility:hidden;position: absolute; top: 0; left: -9999px;'>"+headerAndFooterInserts+"</div></body></html>")(data);
-
+  console.log('Content set');
 	page.onLoadFinished = function(status) {
+    console.log('Page finished loading', status);
 		if(status !== 'success'){
 			callback('error');
 		} else {
