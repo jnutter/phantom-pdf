@@ -32,8 +32,17 @@ var Render = module.exports = function(manifest, data, callback){
 		callback(e);
 	};
   console.log('Setting content');
+
 	page.content = Handlebars.compile("<!DOCTYPE html><html><head><style type='text/css'>{{> css}}</style></head><body>{{> body}}<div style='visibility:hidden;position: absolute; top: 0; left: -9999px;'>"+headerAndFooterInserts+"</div></body></html>")(data);
   console.log('Content set');
+
+  if(manifest.scripts) {
+    manifest.scripts.forEach(function(script){
+      console.log("Loading Script:", script);
+      page.injectJs(script);
+    });
+  }
+  
 	page.onLoadFinished = function(status) {
     console.log('Page finished loading', status);
 		if(status !== 'success'){
