@@ -1,6 +1,6 @@
 {
   "name": "phantom-pdf",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "PDF Generation for Node.js using handlebars and less",
   "main": "index.js",
   "scripts": {

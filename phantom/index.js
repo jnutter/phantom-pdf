@@ -5,7 +5,7 @@ console.log('Phantom booted');
 
 if (phantom.args.length < 1) {
 	console.log('incorrect args');
-	phantom.exit();
+	phantom.exit(1);
 }
 
 phantom.onError = function(msg, trace) {
