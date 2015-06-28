@@ -14,20 +14,21 @@ A very opinionated PDF generation using [PhantomJS](http://phantomjs.org/) writt
   var PhantomPDF = require('phantom-pdf');
 
   var manifest = {
+    phantomjsPath: __dirname+'/node_modules/phantomjs/bin/phantomjs',
     templates: {
-      body: _dirname+'/templates/body.hbs', // Body is required as its the entry point
+      body: __dirname+'/templates/body.hbs', // Body is required as its the entry point
       // If header is defined it will be the page header
       // Note: phantomSettings.paperSize.header.height must also be set
-      header: _dirname+'/templates/header.hbs',
+      header: __dirname+'/templates/header.hbs',
       // If footer is defined it will be the page header
       // Note: phantomSettings.paperSize.footer.height must also be set
-      footer: _dirname+'/templates/footer.hbs',
+      footer: __dirname+'/templates/footer.hbs',
       // This is an example of having a parcial view
-      product: _dirname+'/templates/product.hbs'
+      product: __dirname+'/templates/product.hbs'
     },
-    helpers: _dirname+'/helpers/index.js', // Handlebars helper
+    helpers: __dirname+'/helpers/index.js', // Handlebars helper
     helperVariables: {}, // Additional data to be passed in the helper such as local
-    less: _dirname + '/less/index.less', // Less file to render into css
+    less: __dirname + '/less/index.less', // Less file to render into css
     output: '/tmp/foo.pdf', // This is the destination of the newly created PDF
     // Settings to be passed into phantom
     // List of settings: http://phantomjs.org/api/webpage/
