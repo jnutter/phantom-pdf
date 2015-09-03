@@ -1,7 +1,7 @@
 var fs = require('fs');
 var Handlebars = require('handlebars');
 
-var Render = module.exports = function(manifest, data, callback){
+var Render = module.exports = function(manifest, data, isDebug, callback){
 	var partials = this.loadPartials(manifest.templates);
 	var phantomSettings = manifest.phantomSettings;
 
@@ -48,8 +48,19 @@ var Render = module.exports = function(manifest, data, callback){
 		if(status !== 'success'){
 			callback('error');
 		} else {
-			page.render(manifest.output);
-			callback();
+			if (isDebug) {
+			       try {
+			          fs.write(manifest.output, page.content, 'w');
+			          callback();
+			        } catch (e) {
+			          console.log(e);
+			          callback('error');
+			        }
+			      }
+			else {
+			        page.render(manifest.output);
+			        callback();
+			      }
 		};
 	}
 
