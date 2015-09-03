@@ -59,3 +59,14 @@ A very opinionated PDF generation using [PhantomJS](http://phantomjs.org/) writt
     ...
   });
 ```
+
+## For debug
+Save in a temp html file for develop css style
+
+```
+var manifest = {
+    output: '/tmp/foo.html'
+    ...,
+    isDebug: true
+}
+```
