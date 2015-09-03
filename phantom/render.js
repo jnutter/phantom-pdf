@@ -48,7 +48,7 @@ var Render = module.exports = function(manifest, data, isDebug, callback){
 		if(status !== 'success'){
 			callback('error');
 		} else {
-			if (isDebug) {
+			if (isDebug === 'true') {
 			       try {
 			          fs.write(manifest.output, page.content, 'w');
 			          callback();
