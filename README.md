@@ -61,7 +61,7 @@ A very opinionated PDF generation using [PhantomJS](http://phantomjs.org/) writt
 ```
 
 ## For debug
-Save in a temp html file for develop css style
+Save in a temp html file for develop
 
 ```
 var manifest = {
