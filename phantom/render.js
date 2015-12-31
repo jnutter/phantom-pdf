@@ -18,7 +18,7 @@ var Render = module.exports = function(manifest, data, debug, callback) {
 
   console.log('Set headers and footers');
   var headerAndFooterInserts = '';
-  if(!debug) {
+  if(debug !== 'true') {
     headerAndFooterInserts = "<div style='visibility:hidden;position: absolute; top: 0; left: -9999px;'>" + this.setPrintHeadersOrFooters(partials, phantomSettings, data) + "</div>";
   }
 
@@ -55,7 +55,7 @@ var Render = module.exports = function(manifest, data, debug, callback) {
       callback('error');
       return;
     } else {
-      if (debug) {
+      if (debug === 'true') {
         try {
           page.render(manifest.output);
           fs.write(manifest.output, page.content, 'w');
