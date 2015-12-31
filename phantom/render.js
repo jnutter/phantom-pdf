@@ -4,7 +4,6 @@ var Handlebars = require('handlebars');
 var Render = module.exports = function(manifest, data, callback){
 	var partials = this.loadPartials(manifest.templates);
 	var phantomSettings = manifest.phantomSettings;
-
 	if(!partials.body) {
 		return callback('body.hbs not found');
 	}
@@ -13,7 +12,8 @@ var Render = module.exports = function(manifest, data, callback){
 	var page = require('webpage').create();
 
   console.log('Register handlebar helpers');
-	this.registerHelpers(require(manifest.helpers), manifest.helperVariables);
+	if(manifest.helpers)
+		this.registerHelpers(require(manifest.helpers), manifest.helperVariables);
 
   console.log('Set headers and footers');
 	var headerAndFooterInserts = this.setPrintHeadersOrFooters(partials, phantomSettings, data);
@@ -23,6 +23,7 @@ var Render = module.exports = function(manifest, data, callback){
 
   console.log('Register parcials');
 	this.registerPartial(partials);
+
   console.log('Register CSS parcials');
 	this.registerCss(manifest.css);
 
@@ -42,7 +43,7 @@ var Render = module.exports = function(manifest, data, callback){
       page.injectJs(script);
     });
   }
-  
+
 	page.onLoadFinished = function(status) {
     console.log('Page finished loading', status);
 		if(status !== 'success'){
