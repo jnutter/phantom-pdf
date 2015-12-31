@@ -14,7 +14,7 @@ A very opinionated PDF generation using [PhantomJS](http://phantomjs.org/) writt
   var PhantomPDF = require('phantom-pdf');
 
   var manifest = {
-    phantomjsPath: __dirname+'/node_modules/phantomjs/bin/phantomjs',
+    phantomjsPath: __dirname+'/node_modules/phantomjs/bin/phantomjs', // Optional
     templates: {
       body: __dirname+'/templates/body.hbs', // Body is required as its the entry point
       // If header is defined it will be the page header

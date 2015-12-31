@@ -1,7 +1,7 @@
 var fs = require('fs');
 var Handlebars = require('handlebars');
 
-var Render = module.exports = function(manifest, data, isDebug, callback) {
+var Render = module.exports = function(manifest, data, debug, callback) {
   var partials = this.loadPartials(manifest.templates);
   var phantomSettings = manifest.phantomSettings;
 
@@ -17,7 +17,10 @@ var Render = module.exports = function(manifest, data, isDebug, callback) {
   }
 
   console.log('Set headers and footers');
-  var headerAndFooterInserts = this.setPrintHeadersOrFooters(partials, phantomSettings, data);
+  var headerAndFooterInserts = '';
+  if(!debug) {
+    headerAndFooterInserts = "<div style='visibility:hidden;position: absolute; top: 0; left: -9999px;'>" + this.setPrintHeadersOrFooters(partials, phantomSettings, data) + "</div>";
+  }
 
   console.log('Setup page');
   this.setPageSettings(page, phantomSettings);
@@ -35,18 +38,7 @@ var Render = module.exports = function(manifest, data, isDebug, callback) {
   };
   console.log('Setting content');
 
-  var top = "<!DOCTYPE html><html><head><style type='text/css'>{{> css}}</style></head><body>{{> body}}<div style='visibility:hidden;position: absolute; top: 0; left: -9999px;'>";
-  var bottom = "</div></body></html>";
-
-  if (isDebug === 'true') {
-    top = "<style type='text/css'>{{> css}}</style></head><body>{{> body}}<div>";
-    bottom = "</div></body>"
-    page.content = Handlebars.compile(top + bottom)(data);
-  }
-
-  else {
-    page.content = Handlebars.compile(top + headerAndFooterInserts + bottom)(data);
-  }
+  page.content = Handlebars.compile("<!DOCTYPE html><html><head><style type='text/css'>{{> css}}</style></head><body>{{> body}}" + headerAndFooterInserts + "</body></html>")(data);
 
   console.log('Content set');
 
@@ -63,20 +55,16 @@ var Render = module.exports = function(manifest, data, isDebug, callback) {
       callback('error');
       return;
     } else {
-      if (isDebug === 'true') {
+      if (debug) {
         try {
           page.render(manifest.output);
-
-          var html = "<!DOCTYPE html><html><head>" + phantomSettings['headerdebug'] + page.content + phantomSettings['footerdebug'] + '<html>'
-
-          fs.write(manifest.output, html, 'w');
+          fs.write(manifest.output, page.content, 'w');
           callback();
         } catch (e) {
           console.log(e);
-          callback('error');
+          callback(e);
         }
-      }
-      else {
+      } else {
         page.render(manifest.output);
         callback();
       }
@@ -95,14 +83,9 @@ Render.prototype.setPrintHeadersOrFooters = function(partials, phantomSettings, 
       headerAndFooterInserts += partial;
 
       phantomSettings.paperSize[type].contents = phantom.callback(function(pageNum, numPages) {
-
         var template = Handlebars.compile('<style>{{> css}}</style>' + partials[type]);
-
-        var t = template({pageNum: pageNum, numPages: numPages, data: data});
-
-        phantomSettings[type + 'debug'] = t;
-
-        return t;
+        var rendered = template({pageNum: pageNum, numPages: numPages, data: data});
+        return rendered;
 
       });
     }
