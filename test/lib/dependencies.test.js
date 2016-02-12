@@ -14,7 +14,7 @@ describe('Dependencies', function () {
   describe('Phantom', function () {
 
     it('should return true if phantom is installed', function(done){
-      this.dependencies.isPhantomInstalled(function(installed) {
+      this.dependencies.isPhantomInstalled('/foo/bar', function(installed) {
         assert.equal(installed, true);
         done();
       });

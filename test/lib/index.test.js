@@ -5,7 +5,7 @@ var assert = require("assert")
 describe('Bootstrap', function () {
   before(function(){
     var dependenciesStub = {
-      isPhantomInstalled: function(cb) {
+      isPhantomInstalled: function(phantomjsPath, cb) {
         cb(true);
       }
     };
@@ -20,7 +20,7 @@ describe('Bootstrap', function () {
         callback();
       }
     };
-    this.dependencies = proxyquire('../../lib/index', { 'dependencies': dependenciesStub, 'child_process': childProcessStub, './css': cssStub });
+    this.dependencies = proxyquire('../../lib/index', { 'dependencies': dependenciesStub, 'child_process': childProcessStub, 'css': cssStub });
   });
 
   it('Should bootstrap up', function(done){
@@ -30,7 +30,7 @@ describe('Bootstrap', function () {
       done();
     }
     new index({},{}, function(err){
-      assert(false, err);
+      assert(true, err);
       done();
     });
   });
