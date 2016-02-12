@@ -1,3 +1,7 @@
+0.3.1
+-----
+Support Phantom 2
+
 0.3.0
 -----
 Add debug mode to output file as html
