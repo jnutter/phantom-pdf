@@ -5,7 +5,6 @@ describe('Dependencies', function () {
   before(function(){
     var childProcessStub = {
       exec: function(cmd, cb) {
-        console.log(cmd);
         cb(null, '/foo/bar');
       }
     };
