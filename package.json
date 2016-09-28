@@ -21,8 +21,7 @@
     "async": "^1.5.2",
     "deep-extend": "^0.4.1",
     "handlebars": "^4.0.5",
-    "less": "^2.6.0",
-    "phantomjs-prebuilt": "^2.1.12"
+    "less": "^2.6.0"
   },
   "devDependencies": {
     "mocha": "^2.4.5",
